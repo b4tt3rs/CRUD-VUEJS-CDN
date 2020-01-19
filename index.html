@@ -11,26 +11,67 @@
 </head>
 
 <body>
-    <div class="container mt-5" id="root">
-        <h3>{{titulo}}</h3>
-        <input type="text" class="form-control my-3" v-model="nuevaFruta" @keyup.enter="agregarFruta">
-        <button class="btn btn-primary" @click="agregarFruta">AGREGAR</button>
-        <div class="mt-3" v-for="(fruta,index) of listaFrutas">
-            <div  :class="['alert',!fruta.estadoEditar? 'alert-primary':'alert-success','clearfix']" role="alert">
-                <div class="float-left" v-if="!fruta.estadoEditar">
-                    {{fruta.nombre}}
-                </div>
-                <div class="float-left" v-if="fruta.estadoEditar">
-                    <input type="text" class="form-control" @keyup.enter="editarFruta(index)" v-model="fruta.nombre">
-                </div>
-                <div class="float-right">
-                    <button class="btn btn-warning" v-if="!fruta.estadoEditar"
-                        @click="editarFruta(index)">EDIT</button>
-                    <button class="btn btn-success" v-if="fruta.estadoEditar" @click="editarFruta(index)">OK</button>
-                    <button class="btn btn-danger" v-if="!fruta.estadoEditar" @click="eliminarFruta(index)">X</button>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6" id="modulo1">
+                <div class="card bg-primary text-white">
+                    <div class="card-header">
+                        {{titulo}}
+                    </div>
+                    <div class="card-body">
+                        <input type="text" class="form-control my-3" v-model="nuevaFruta" @keyup.enter="agregarFruta">
+                        <button class="btn btn-warning" @click="agregarFruta">AGREGAR</button>
+                        <div class="mt-3" v-for="(fruta,index) of listaFrutas">
+                            <div :class="['alert',!fruta.estadoEditar? 'alert-primary':'alert-success','clearfix']"
+                                role="alert">
+                                <div class="float-left" v-if="!fruta.estadoEditar">
+                                    {{fruta.nombre}}
+                                </div>
+                                <div class="float-left" v-if="fruta.estadoEditar">
+                                    <input type="text" class="form-control" @keyup.enter="editarFruta(index)"
+                                        v-model="fruta.nombre">
+                                </div>
+                                <div class="float-right">
+                                    <button class="btn btn-warning" v-if="!fruta.estadoEditar"
+                                        @click="editarFruta(index)">EDIT</button>
+                                    <button class="btn btn-success" v-if="fruta.estadoEditar"
+                                        @click="editarFruta(index)">OK</button>
+                                    <button class="btn btn-danger" v-if="!fruta.estadoEditar"
+                                        @click="eliminarFruta(index)">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-6" id="modulo2">
+                <div class="card bg-success text-white">
+                    <div class="card-header">
+                        {{titulo}}
+                    </div>
+                    <div class="card-body ">
+                        <div class="card-title">
+                            PALABRA ORIGINAL: {{palabra}}
+                        </div>
+                        <div class="card-title">
+                            PALABRA INVERTIDAD : {{invertido}}
+                        </div>
+                        <input type="text" class="form-control" v-model="palabra">
+                        <div class="card-text my-3">
+                            <button class="btn btn-primary" @click="validarMaximo?contador++:contador--">+</button>
+                            <button class="btn btn-danger" @click="validarMinimo?contador--:contador=0">-</button>
+                        </div>
+                        {{contador}} {{limiteMaximo}}
+                        <div class="progress my-3">
+                            <div class="progress-bar" role="progressbar" :style="{'width': contador+'%'}" :class="color"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{contador}}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </div>
 
 
